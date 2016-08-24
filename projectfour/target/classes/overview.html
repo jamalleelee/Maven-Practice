@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+  <HEAD>
+    <TITLE>API Overview</TITLE>
+  </HEAD>
+  <BODY>
+    Java EE Quickstart container managed security and user self-registration.
+    <p>The Java layout is pretty vanilla. All of the security is handled by AccountsController.java. The model package has the User and Roel Entities, 
+    and the service package has EJB's the AccountController to access the database. The service/RoleSingletonBean is implemented as a Singleton because roles are static
+    in this application: they are loaded on initialization and never change.</p>
+    <p>Java EE servlet 3.0 defines HttpServletRequest.login and HttpServletRequest.logout and these are implemented by Wildfly.
+    The file WEB-INF/jboss-web.xml defines the security context and configuration scripts for the security-domain are provided in the root
+    directory. These scripts query the database behind the scenes and implement the URL and other forms of security.</p>  
+    <p>URL security is configured in WEB-INF/web.xml and enforced by the container via the security-domain configuration. 
+    the webapp/views directory is not restricted, the webapp/views/acounts/user directory is restricted to accounts with a "USER"
+    role, and the webapp/views/accounts/admin directory is restricted to accounts with a "ADMIN" role. Security annotations are 
+    also placed on the service/UserSessionBean. If unauthorized access to a URL is attempted the client browser is redirected to 
+    views/accounts/login.xhtml.</p>
+    <p>The src/test/java/test/SiteTest class uses Arquillian, Drone, and Graphene to test the site through the web pages.
+    These tests depend on id's and parameters in the jsf/html files to find input fields and submit buttons.</p> 
+    <p>The front end is implemented with twitter bootstrap. Care was taken to insure that JSF and Java conventions 
+    don't interfere with bootstrap and jquerys' needs, so that those resources are referenced with html scripting tags.<p>
+    <p>To extend the model create new model entities and add service beans. Add controllers in support of new views.
+    As the application grows it might be a good idea to move navigation into faces-config.xml.</p>
+    <p>Finally, this archetype is meant to give users and general idea of java conventions and best practices, so it should provide 
+    a lot of useful information and a starting point for Java EE applications.</p>
+  </BODY>
+</HTML>
